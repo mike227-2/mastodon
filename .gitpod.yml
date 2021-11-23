@@ -7,7 +7,8 @@ tasks:
       bundle
       yarn install
       gem install foreman
-    command: echo 'start script'
+    command: |
+      RAILS_ENV=development bundle exec rails db:setup
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
