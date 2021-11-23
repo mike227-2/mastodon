@@ -7,10 +7,14 @@ tasks:
       bundle
       yarn install
       gem install foreman
-    command: |
       RAILS_ENV=development bundle exec rails db:setup
+      gp sync-done bundle
+    command: |
+      foreman start -f Procfile.dev
+  - name: Redis
+    command: redis-server
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
   - port: 3000
-    onOpen: open-preview
+    onOpen: open-browser
