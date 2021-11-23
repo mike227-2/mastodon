@@ -1,9 +1,8 @@
 import React from 'react';
+import LogoImg from '../../images/altlogo.jpg';
 
 const Logo = () => (
-  <svg viewBox='0 0 216.4144 232.00976' className='logo'>
-    <use xlinkHref='#mastodon-svg-logo' />
-  </svg>
+  <img src={LogoImg} />
 );
 
 export default Logo;
