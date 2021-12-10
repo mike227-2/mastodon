@@ -55,7 +55,7 @@ class InitialStateSerializer < ActiveModel::Serializer
     store = {}
 
     if object.current_account
-      store[:showUpload]        = false
+      store[:showUpload]        = Pundit.policy(object.current_account, User).upload?
       store[:me]                = object.current_account.id.to_s
       store[:default_privacy]   = object.visibility || object.current_account.user.setting_default_privacy
       store[:default_sensitive] = object.current_account.user.setting_default_sensitive

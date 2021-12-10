@@ -41,6 +41,11 @@ class UserPolicy < ApplicationPolicy
     admin? && !record.admin? && demoteable?
   end
 
+
+  def upload?
+    true
+  end
+
   private
 
   def promoteable?
