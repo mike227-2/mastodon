@@ -14,6 +14,7 @@ import {
 const mapStateToProps = state => ({
   text: state.getIn(['compose', 'text']),
   suggestions: state.getIn(['compose', 'suggestions']),
+  showUpload: state.getIn(['compose', 'showUpload']),
   spoiler: state.getIn(['compose', 'spoiler']),
   spoilerText: state.getIn(['compose', 'spoiler_text']),
   privacy: state.getIn(['compose', 'privacy']),
@@ -29,35 +30,35 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onChange (text) {
+  onChange(text) {
     dispatch(changeCompose(text));
   },
 
-  onSubmit (router) {
+  onSubmit(router) {
     dispatch(submitCompose(router));
   },
 
-  onClearSuggestions () {
+  onClearSuggestions() {
     dispatch(clearComposeSuggestions());
   },
 
-  onFetchSuggestions (token) {
+  onFetchSuggestions(token) {
     dispatch(fetchComposeSuggestions(token));
   },
 
-  onSuggestionSelected (position, token, suggestion, path) {
+  onSuggestionSelected(position, token, suggestion, path) {
     dispatch(selectComposeSuggestion(position, token, suggestion, path));
   },
 
-  onChangeSpoilerText (checked) {
+  onChangeSpoilerText(checked) {
     dispatch(changeComposeSpoilerText(checked));
   },
 
-  onPaste (files) {
+  onPaste(files) {
     dispatch(uploadCompose(files));
   },
 
-  onPickEmoji (position, data, needsSpace) {
+  onPickEmoji(position, data, needsSpace) {
     dispatch(insertEmojiCompose(position, data, needsSpace));
   },
 
