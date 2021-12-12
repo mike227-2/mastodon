@@ -6,7 +6,7 @@ en_GB:
     about_this: About
     active_count_after: active
     active_footnote: Monthly Active Users (MAU)
-    administered_by: 'Administered by:'
+    administered_by: "Administered by:"
     api: API
     apps: Mobile apps
     apps_platforms: Use Mastodon from iOS, Android and other platforms
@@ -27,7 +27,7 @@ en_GB:
     learn_more: Learn more
     privacy_policy: Privacy policy
     see_whats_happening: See what's happening
-    server_stats: 'Server stats:'
+    server_stats: "Server stats:"
     source_code: Source code
     status_count_after:
       one: status
@@ -362,7 +362,7 @@ en_GB:
         delete: Delete
         placeholder: Describe what actions have been taken, or any other related updates...
       reopen: Reopen report
-      report: 'Report #%{id}'
+      report: "Report #%{id}"
       reported_account: Reported account
       reported_by: Reported by
       resolved: Resolved
@@ -487,8 +487,8 @@ en_GB:
   application_mailer:
     notification_preferences: Change e-mail preferences
     salutation: "%{name},"
-    settings: 'Change e-mail preferences: %{link}'
-    view: 'View:'
+    settings: "Change e-mail preferences: %{link}"
+    view: "View:"
     view_profile: View Profile
     view_status: View status
   applications:
@@ -528,8 +528,8 @@ en_GB:
     already_following: You are already following this account
     error: Unfortunately, there was an error looking up the remote account
     follow: Follow
-    follow_request: 'You have sent a follow request to:'
-    following: 'Success! You are now following:'
+    follow_request: "You have sent a follow request to:"
+    following: "Success! You are now following:"
     post_follow:
       close: Or, you can just close this window.
       return: Show the user's profile
@@ -568,14 +568,14 @@ en_GB:
       one: "%{count} person"
       other: "%{count} people"
   errors:
-    '403': You don't have permission to view this page.
-    '404': The page you are looking for isn't here.
-    '410': The page you were looking for doesn't exist here anymore.
-    '422':
+    "403": You don't have permission to view this page.
+    "404": The page you are looking for isn't here.
+    "410": The page you were looking for doesn't exist here anymore.
+    "422":
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
-    '429': Throttled
-    '500':
+    "429": Throttled
+    "500":
       content: We're sorry, but something went wrong on our end.
       title: This page is not correct
     noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="%{apps_path}">native apps</a> for Mastodon for your platform.
@@ -660,15 +660,15 @@ en_GB:
     delete: Deactivate
     expired: Expired
     expires_in:
-      '1800': 30 minutes
-      '21600': 6 hours
-      '3600': 1 hour
-      '43200': 12 hours
-      '604800': 1 week
-      '86400': 1 day
+      "1800": 30 minutes
+      "21600": 6 hours
+      "3600": 1 hour
+      "43200": 12 hours
+      "604800": 1 week
+      "86400": 1 day
     expires_in_prompt: Never
     generate: Generate
-    invited_by: 'You were invited by:'
+    invited_by: "You were invited by:"
     max_uses:
       one: 1 use
       other: "%{count} uses"
@@ -687,7 +687,7 @@ en_GB:
       too_many: Cannot attach more than 4 files
   migrations:
     acct: username@domain of the new account
-    currently_redirecting: 'Your profile is set to redirect to:'
+    currently_redirecting: "Your profile is set to redirect to:"
     proceed: Save
     updated_msg: Your account migration setting successfully updated!
   moderation:
@@ -705,7 +705,7 @@ en_GB:
         other: "%{count} new notifications since your last visit \U0001F418"
       title: In your absence...
     favourite:
-      body: 'Your status was favourited by %{name}:'
+      body: "Your status was favourited by %{name}:"
       subject: "%{name} favourited your status"
       title: New favourite
     follow:
@@ -715,15 +715,15 @@ en_GB:
     follow_request:
       action: Manage follow requests
       body: "%{name} has requested to follow you"
-      subject: 'Pending follower: %{name}'
+      subject: "Pending follower: %{name}"
       title: New follow request
     mention:
       action: Reply
-      body: 'You were mentioned by %{name} in:'
+      body: "You were mentioned by %{name} in:"
       subject: You were mentioned by %{name}
       title: New mention
     reblog:
-      body: 'Your status was boosted by %{name}:'
+      body: "Your status was boosted by %{name}:"
       subject: "%{name} boosted your status"
       title: New boost
   number:
@@ -770,18 +770,18 @@ en_GB:
     missing_resource: Could not find the required redirect URL for your account
     no_account_html: Don't have an account? You can <a href='%{sign_up_path}' target='_blank'>sign up here</a>
     proceed: Proceed to follow
-    prompt: 'You are going to follow:'
+    prompt: "You are going to follow:"
     reason_html: "<strong>Why is this step necessary?</strong> <code>%{instance}</code> might not be the server where you are registered, so we need to redirect you to your home server first."
   remote_interaction:
     favourite:
       proceed: Proceed to favourite
-      prompt: 'You want to favourite this toot:'
+      prompt: "You want to favourite this toot:"
     reblog:
       proceed: Proceed to boost
-      prompt: 'You want to boost this toot:'
+      prompt: "You want to boost this toot:"
     reply:
       proceed: Proceed to reply
-      prompt: 'You want to reply to this toot:'
+      prompt: "You want to reply to this toot:"
   remote_unfollow:
     error: Error
     title: Title
@@ -833,7 +833,7 @@ en_GB:
     title: Sessions
   settings:
     authorized_apps: Authorized apps
-    back: Back to Mastodon
+    back: Back
     delete: Account deletion
     development: Development
     edit_profile: Edit profile
@@ -848,7 +848,7 @@ en_GB:
     two_factor_authentication: Two-factor Auth
   statuses:
     attached:
-      description: 'Attached: %{attached}'
+      description: "Attached: %{attached}"
       image:
         one: "%{count} image"
         other: "%{count} images"
@@ -856,10 +856,10 @@ en_GB:
         one: "%{count} video"
         other: "%{count} videos"
     boosted_from_html: Boosted from %{acct_link}
-    content_warning: 'Content warning: %{warning}'
+    content_warning: "Content warning: %{warning}"
     disallowed_hashtags:
-      one: 'contained a disallowed hashtag: %{tags}'
-      other: 'contained the disallowed hashtags: %{tags}'
+      one: "contained a disallowed hashtag: %{tags}"
+      other: "contained the disallowed hashtags: %{tags}"
     language_detection: Automatically detect language
     open_in_web: Open in web
     over_character_limit: character limit of %{max} exceeded
@@ -988,7 +988,7 @@ en_GB:
     generate_recovery_codes: Generate recovery codes
     instructions_html: "<strong>Scan this QR code into Google Authenticator or a similiar TOTP app on your phone</strong>. From now on, that app will generate tokens that you will have to enter when logging in."
     lost_recovery_codes: Recovery codes allow you to regain access to your account if you lose your phone. If you've lost your recovery codes, you can regenerate them here. Your old recovery codes will be invalidated.
-    manual_instructions: 'If you can''t scan the QR code and need to enter it manually, here is the plain-text secret:'
+    manual_instructions: "If you can't scan the QR code and need to enter it manually, here is the plain-text secret:"
     recovery_codes: Backup recovery codes
     recovery_codes_regenerated: Recovery codes successfully regenerated
     recovery_instructions_html: If you ever lose access to your phone, you can use one of the recovery codes below to regain access to your account. <strong>Keep the recovery codes safe</strong>. For example, you may print them and store them with other important documents.
@@ -1020,7 +1020,7 @@ en_GB:
       edit_profile_step: You can customize your profile by uploading an avatar, header, changing your display name and more. If you’d like to review new followers before they’re allowed to follow you, you can lock your account.
       explanation: Here are some tips to get you started
       final_action: Start posting
-      final_step: 'Start posting! Even without followers your public messages may be seen by others, for example on the local timeline and in hashtags. You may want to introduce yourself on the #introductions hashtag.'
+      final_step: "Start posting! Even without followers your public messages may be seen by others, for example on the local timeline and in hashtags. You may want to introduce yourself on the #introductions hashtag."
       full_handle: Your full handle
       full_handle_hint: This is what you would tell your friends so they can message or follow you from another server.
       review_preferences_action: Change preferences
@@ -1038,7 +1038,7 @@ en_GB:
     invalid_otp_token: Invalid two-factor code
     otp_lost_help_html: If you lost access to both, you may get in touch with %{email}
     seamless_external_login: You are logged in via an external service, so password and e-mail settings are not available.
-    signed_in_as: 'Signed in as:'
+    signed_in_as: "Signed in as:"
   verification:
     explanation_html: 'You can <strong>verify yourself as the owner of the links in your profile metadata</strong>. For that, the linked website must contain a link back to your Mastodon profile. The link back <strong>must</strong> have a <code>rel="me"</code> attribute. The text content of the link does not matter. Here is an example:'
     verification: Verification
