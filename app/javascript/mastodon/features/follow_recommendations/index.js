@@ -32,7 +32,7 @@ class FollowRecommendations extends ImmutablePureComponent {
     isLoading: PropTypes.bool,
   };
 
-  componentDidMount () {
+  componentDidMount() {
     const { dispatch, suggestions } = this.props;
 
     // Don't re-fetch if we're e.g. navigating backwards to this page,
@@ -43,7 +43,7 @@ class FollowRecommendations extends ImmutablePureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { dispatch } = this.props;
 
     // Force the home timeline to be reloaded when the user navigates
@@ -71,7 +71,7 @@ class FollowRecommendations extends ImmutablePureComponent {
     router.history.push('/timelines/home');
   }
 
-  render () {
+  render() {
     const { suggestions, isLoading } = this.props;
 
     return (
@@ -96,7 +96,6 @@ class FollowRecommendations extends ImmutablePureComponent {
               </div>
 
               <div className='column-actions'>
-                <img src={imageGreeting} alt='' className='column-actions__background' />
                 <Button onClick={this.handleDone}><FormattedMessage id='follow_recommendations.done' defaultMessage='Done' /></Button>
               </div>
             </React.Fragment>
