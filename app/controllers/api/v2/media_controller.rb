@@ -2,7 +2,7 @@
 
 class Api::V2::MediaController < Api::V1::MediaController
   include Authorization
-  
+
   def create
     authorize current_account.user, :upload?
 
