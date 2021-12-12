@@ -58,6 +58,14 @@ module UserRoles
     end
   end
 
+  def allow_upload!
+    update!(can_upload: true)
+  end
+
+  def revoke_upload!
+    update!(can_upload: false)
+  end
+
   def demote!
     if admin?
       update!(admin: false, moderator: true)

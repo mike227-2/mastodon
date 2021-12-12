@@ -11,6 +11,20 @@ module Admin
       redirect_to admin_account_path(@user.account_id)
     end
 
+    def allow_upload
+      authorize @user, :set_upload?
+      @user.allow_upload!
+      log_action :allow_upload, @user
+      redirect_to admin_account_path(@user.account_id)
+    end
+
+    def revoke_upload
+      authorize @user, :revoke_upload?
+      @user.revoke_upload!
+      log_action :revoke_upload, @user
+      redirect_to admin_account_path(@user.account_id)
+    end
+
     def demote
       authorize @user, :demote?
       @user.demote!
