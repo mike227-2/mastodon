@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_30_000137) do
+ActiveRecord::Schema.define(version: 2021_12_12_003947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -915,6 +915,7 @@ ActiveRecord::Schema.define(version: 2021_06_30_000137) do
     t.datetime "sign_in_token_sent_at"
     t.string "webauthn_id"
     t.inet "sign_up_ip"
+    t.boolean "can_upload", default: false
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id"
