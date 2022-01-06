@@ -41,6 +41,18 @@ class UserPolicy < ApplicationPolicy
     admin? && !record.admin? && demoteable?
   end
 
+  def upload?
+    current_user.admin? || current_user.can_upload?
+  end
+
+  def set_upload?
+    admin? && !record.can_upload?
+  end
+
+  def revoke_upload?
+    admin? && record.can_upload?
+  end
+
   private
 
   def promoteable?

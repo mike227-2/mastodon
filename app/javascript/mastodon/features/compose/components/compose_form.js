@@ -59,12 +59,14 @@ class ComposeForm extends ImmutablePureComponent {
     onPaste: PropTypes.func.isRequired,
     onPickEmoji: PropTypes.func.isRequired,
     showSearch: PropTypes.bool,
+    showUpload: PropTypes.bool,
     anyMedia: PropTypes.bool,
     singleColumn: PropTypes.bool,
   };
 
   static defaultProps = {
     showSearch: false,
+    showUpload: false,
   };
 
   handleChange = (e) => {
@@ -78,7 +80,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   getFulltextForCharacterCounting = () => {
-    return [this.props.spoiler? this.props.spoilerText: '', countableText(this.props.text)].join('');
+    return [this.props.spoiler ? this.props.spoilerText : '', countableText(this.props.text)].join('');
   }
 
   canSubmit = () => {
@@ -132,11 +134,11 @@ class ComposeForm extends ImmutablePureComponent {
     }
   }
 
-  componentDidMount () {
-    this._updateFocusAndSelection({ });
+  componentDidMount() {
+    this._updateFocusAndSelection({});
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     this._updateFocusAndSelection(prevProps);
   }
 
@@ -150,19 +152,19 @@ class ComposeForm extends ImmutablePureComponent {
       let selectionEnd, selectionStart;
 
       if (this.props.preselectDate !== prevProps.preselectDate) {
-        selectionEnd   = this.props.text.length;
+        selectionEnd = this.props.text.length;
         selectionStart = this.props.text.search(/\s/) + 1;
       } else if (typeof this.props.caretPosition === 'number') {
         selectionStart = this.props.caretPosition;
-        selectionEnd   = this.props.caretPosition;
+        selectionEnd = this.props.caretPosition;
       } else {
-        selectionEnd   = this.props.text.length;
+        selectionEnd = this.props.text.length;
         selectionStart = selectionEnd;
       }
 
       this.autosuggestTextarea.textarea.setSelectionRange(selectionStart, selectionEnd);
       this.autosuggestTextarea.textarea.focus();
-    } else if(prevProps.isSubmitting && !this.props.isSubmitting) {
+    } else if (prevProps.isSubmitting && !this.props.isSubmitting) {
       this.autosuggestTextarea.textarea.focus();
     } else if (this.props.spoiler !== prevProps.spoiler) {
       if (this.props.spoiler) {
@@ -186,14 +188,23 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   handleEmojiPick = (data) => {
-    const { text }     = this.props;
-    const position     = this.autosuggestTextarea.textarea.selectionStart;
-    const needsSpace   = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1]);
+    const { text } = this.props;
+    const position = this.autosuggestTextarea.textarea.selectionStart;
+    const needsSpace = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1]);
 
     this.props.onPickEmoji(position, data, needsSpace);
   }
 
-  render () {
+  displayUpload() {
+    if (this.props.showUpload) {
+      return (<UploadButtonContainer />);
+    }
+    else {
+      return "";
+    }
+  }
+
+  render() {
     const { intl, onPaste, showSearch } = this.props;
     const disabled = this.props.isSubmitting;
     let publishText = '';
@@ -252,7 +263,7 @@ class ComposeForm extends ImmutablePureComponent {
 
         <div className='compose-form__buttons-wrapper'>
           <div className='compose-form__buttons'>
-            <UploadButtonContainer />
+            {this.displayUpload()}
             <PollButtonContainer />
             <PrivacyDropdownContainer />
             <SpoilerButtonContainer />

@@ -53,6 +53,7 @@ const initialState = ImmutableMap({
   sensitive: false,
   spoiler: false,
   spoiler_text: '',
+  showUpload: false,
   privacy: null,
   text: '',
   focusDate: null,

@@ -267,6 +267,8 @@ Rails.application.routes.draw do
       resource :role, only: [] do
         member do
           post :promote
+          post :allow_upload
+          post :revoke_upload
           post :demote
         end
       end

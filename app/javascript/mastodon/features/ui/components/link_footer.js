@@ -13,7 +13,7 @@ const messages = defineMessages({
 });
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
-  onLogout () {
+  onLogout() {
     dispatch(openModal('CONFIRM', {
       message: intl.formatMessage(messages.logoutMessage),
       confirm: intl.formatMessage(messages.logoutConfirm),
@@ -42,7 +42,7 @@ class LinkFooter extends React.PureComponent {
     return false;
   }
 
-  render () {
+  render() {
     const { withHotkeys } = this.props;
 
     return (
@@ -60,11 +60,6 @@ class LinkFooter extends React.PureComponent {
         </ul>
 
         <p>
-          <FormattedMessage
-            id='getting_started.open_source_notice'
-            defaultMessage='Mastodon is open source software. You can contribute or report issues on GitHub at {github}.'
-            values={{ github: <span><a href={source_url} rel='noopener noreferrer' target='_blank'>{repository}</a> (v{version})</span> }}
-          />
         </p>
       </div>
     );

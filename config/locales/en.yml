@@ -1217,7 +1217,7 @@ en:
     aliases: Account aliases
     appearance: Appearance
     authorized_apps: Authorized apps
-    back: Back to Mastodon
+    back: Back
     delete: Account deletion
     development: Development
     edit_profile: Edit profile

@@ -1,0 +1,28 @@
+image:
+  file: .gitpod.Dockerfile
+
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - init: |
+      bundle
+      yarn install
+      gem install foreman
+      RAILS_ENV=development bundle exec rails db:setup
+      gp sync-done bundle
+    command: |
+      foreman start -f Procfile.dev
+  - name: Redis
+    command: redis-server
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 3000
+    onOpen: open-browser
+  - port: 5432
+    onOpen: ignore
+  - port: 6379
+    onOpen: ignore
+  - port: 4000
+    onOpen: ignore
+  - port: 3035
+    onOpen: ignore

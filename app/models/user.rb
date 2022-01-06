@@ -42,6 +42,7 @@
 #  sign_in_token_sent_at     :datetime
 #  webauthn_id               :string
 #  sign_up_ip                :inet
+#  can_upload                :boolean          default(FALSE)
 #
 
 class User < ApplicationRecord
