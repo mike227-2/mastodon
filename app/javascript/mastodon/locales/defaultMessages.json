@@ -1418,7 +1418,7 @@
         "id": "tabs_bar.notifications"
       },
       {
-        "defaultMessage": "Federated timeline",
+        "defaultMessage": "Public posts",
         "id": "navigation_bar.public_timeline"
       },
       {
@@ -2036,7 +2036,7 @@
         "id": "keyboard_shortcuts.local"
       },
       {
-        "defaultMessage": "to open federated timeline",
+        "defaultMessage": "to open public posts",
         "id": "keyboard_shortcuts.federated"
       },
       {
@@ -2510,7 +2510,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Federated timeline",
+        "defaultMessage": "Public posts",
         "id": "column.public"
       },
       {
@@ -3085,7 +3085,7 @@
         "id": "tabs_bar.local_timeline"
       },
       {
-        "defaultMessage": "Federated",
+        "defaultMessage": "Public Posts",
         "id": "tabs_bar.federated_timeline"
       },
       {
@@ -3167,7 +3167,7 @@
         "id": "tabs_bar.local_timeline"
       },
       {
-        "defaultMessage": "Federated",
+        "defaultMessage": "Public Posts",
         "id": "tabs_bar.federated_timeline"
       },
       {

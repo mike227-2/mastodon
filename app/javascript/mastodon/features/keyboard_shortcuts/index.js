@@ -118,7 +118,7 @@ class KeyboardShortcuts extends ImmutablePureComponent {
               </tr>
               <tr>
                 <td><kbd>g</kbd>+<kbd>t</kbd></td>
-                <td><FormattedMessage id='keyboard_shortcuts.federated' defaultMessage='to open federated timeline' /></td>
+                <td><FormattedMessage id='keyboard_shortcuts.federated' defaultMessage='to open public posts' /></td>
               </tr>
               <tr>
                 <td><kbd>g</kbd>+<kbd>d</kbd></td>
