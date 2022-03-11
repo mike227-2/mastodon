@@ -73,3 +73,19 @@
 
   %h6= t('auth.delete_account')
   %p.muted-hint= t('auth.delete_account_html', path: settings_delete_path)
+
+%hr.spacer/
+
+%h2 Transactions
+%table.table.table--invites
+  %thead
+    %tr
+      %th Post
+      %th Author
+      %th Price
+      %th State
+      %th Due date
+  %tbody
+    = render @account.status_purchases
+
+%hr.spacer/
