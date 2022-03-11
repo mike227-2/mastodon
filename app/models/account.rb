@@ -79,7 +79,7 @@ class Account < ApplicationRecord
   }.freeze
 
   belongs_to :status_purchases
-  has_many :status, :through => :status_purchases
+  has_many :status_purchases
 
   enum protocol: [:ostatus, :activitypub]
   enum suspension_origin: [:local, :remote], _prefix: true
