@@ -8,6 +8,10 @@ class Formatter
 
   include ActionView::Helpers::TextHelper
 
+  def status_unlocked_for_account?(status, account)
+    true if ContentRestrictor.instance.unlocked_for?(status, account)
+  end
+
   def format(status, **options)
     if status.reblog?
       prepend_reblog = status.reblog.account.acct

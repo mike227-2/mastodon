@@ -23,6 +23,7 @@
 #  in_reply_to_account_id :bigint(8)
 #  poll_id                :bigint(8)
 #  deleted_at             :datetime
+#  cost                   :float
 #
 
 class Status < ApplicationRecord
@@ -45,6 +46,9 @@ class Status < ApplicationRecord
   update_index('statuses#status', :proper)
 
   enum visibility: [:public, :unlisted, :private, :direct, :limited], _suffix: :visibility
+
+  has_many :status_purchases
+  has_many :accounts, :through => :status_purchases
 
   belongs_to :application, class_name: 'Doorkeeper::Application', optional: true
 
@@ -167,6 +171,10 @@ class Status < ApplicationRecord
 
   def reblog?
     !reblog_of_id.nil?
+  end
+
+  def unlocked_for?(account)
+    ContentRestrictor.instance.unlocked_for?(self, account)
   end
 
   def within_realtime_window?
