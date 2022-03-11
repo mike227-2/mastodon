@@ -7,7 +7,7 @@ class ContentRestrictor
 
   def unlocked_for?(status, account)
     found_purchase = StatusPurchase.where(status_id: status.id, account: account)
-    status.cost.nil? or !found_purchase.nil? or status.account == account
+    status.cost.nil? or !found_purchase.empty?
   end
 
   def purchase_text(status)
