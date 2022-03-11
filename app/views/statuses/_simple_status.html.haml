@@ -66,4 +66,4 @@
       = link_to remote_interaction_path(status, type: :favourite), class: 'status__action-bar-button icon-button modal-button' do
         = fa_icon 'star fw'
   - else
-    = ContentRestrictor.instance.purchase_text(status).html_safe
+    = link_to "Unlock!", buy_path(status)
