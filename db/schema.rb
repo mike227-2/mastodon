@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_12_003947) do
+ActiveRecord::Schema.define(version: 2022_03_14_120440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,11 @@ ActiveRecord::Schema.define(version: 2021_12_12_003947) do
     t.string "devices_url"
     t.integer "suspension_origin"
     t.datetime "sensitized_at"
+    t.string "epoch_member_id"
+    t.string "street"
+    t.string "phone"
+    t.string "state"
+    t.string "city"
     t.index "(((setweight(to_tsvector('simple'::regconfig, (display_name)::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (username)::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(domain, ''::character varying))::text), 'C'::\"char\")))", name: "search_index", using: :gin
     t.index "lower((username)::text), COALESCE(lower((domain)::text), ''::text)", name: "index_accounts_on_username_and_domain_lower", unique: true
     t.index ["moved_to_account_id"], name: "index_accounts_on_moved_to_account_id"
@@ -784,6 +789,18 @@ ActiveRecord::Schema.define(version: 2021_12_12_003947) do
     t.index ["account_id", "status_id"], name: "index_status_pins_on_account_id_and_status_id", unique: true
   end
 
+  create_table "status_purchases", force: :cascade do |t|
+    t.bigint "status_id"
+    t.bigint "account_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "amount"
+    t.integer "state"
+    t.string "epoch_transaction_id"
+    t.index ["account_id"], name: "index_status_purchases_on_account_id"
+    t.index ["status_id"], name: "index_status_purchases_on_status_id"
+  end
+
   create_table "status_stats", force: :cascade do |t|
     t.bigint "status_id", null: false
     t.bigint "replies_count", default: 0, null: false
@@ -814,6 +831,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_003947) do
     t.bigint "in_reply_to_account_id"
     t.bigint "poll_id"
     t.datetime "deleted_at"
+    t.float "cost"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20190820", order: { id: :desc }, where: "(deleted_at IS NULL)"
     t.index ["id", "account_id"], name: "index_statuses_local_20190824", order: { id: :desc }, where: "((local OR (uri IS NULL)) AND (deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
     t.index ["id", "account_id"], name: "index_statuses_public_20200119", order: { id: :desc }, where: "((deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
@@ -1042,6 +1060,8 @@ ActiveRecord::Schema.define(version: 2021_12_12_003947) do
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade
   add_foreign_key "status_pins", "accounts", name: "fk_d4cb435b62", on_delete: :cascade
   add_foreign_key "status_pins", "statuses", on_delete: :cascade
+  add_foreign_key "status_purchases", "accounts"
+  add_foreign_key "status_purchases", "statuses"
   add_foreign_key "status_stats", "statuses", on_delete: :cascade
   add_foreign_key "statuses", "accounts", column: "in_reply_to_account_id", name: "fk_c7fa917661", on_delete: :nullify
   add_foreign_key "statuses", "accounts", name: "fk_9bda1543f7", on_delete: :cascade

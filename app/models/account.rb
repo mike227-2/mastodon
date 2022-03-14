@@ -47,6 +47,11 @@
 #  devices_url                   :string
 #  suspension_origin             :integer
 #  sensitized_at                 :datetime
+#  epoch_member_id               :string
+#  street                        :string
+#  phone                         :string
+#  state                         :string
+#  city                          :string
 #
 
 class Account < ApplicationRecord
