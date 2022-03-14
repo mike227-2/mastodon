@@ -79,7 +79,7 @@ class Account < ApplicationRecord
     trusted: 1,
   }.freeze
 
-  belongs_to :status_purchases
+  belongs_to :status_purchases, optional: true
   has_many :status_purchases
 
   enum protocol: [:ostatus, :activitypub]
