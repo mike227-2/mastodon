@@ -9,7 +9,7 @@ class ChargeRequest
   end
 
   def build_uri(hmac)
-    "#{EpochConstants::API_URL(nil)}?#{@hash.to_query}&epoch_digest=#{build_digest(hmac)}"
+    "#{EpochConstants.API_URL(nil)}?#{@hash.to_query}&epoch_digest=#{build_digest(hmac)}"
   end
 
   def build_digest(hmac)
