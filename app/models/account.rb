@@ -164,6 +164,10 @@ class Account < ApplicationRecord
     %w(Application Service).include? actor_type
   end
 
+  def has_billing_details?
+    true unless street.blank? or phone.blank? or city.blank? or state.blank?
+  end
+
   def instance_actor?
     id == -99
   end
