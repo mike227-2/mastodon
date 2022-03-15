@@ -81,6 +81,14 @@ A **Vagrant** configuration is included for development purposes. To use it, com
 - Run `vagrant ssh -c "cd /vagrant && foreman start"`
 - Open `http://mastodon.local` in your browser
 
+## Enable Epoch Support
+Run `rails credentials:edit`. Create a new `K/V pair` for key: `epoch_hmac`.
+
+Example:
+```yml
+epoch_hmac: 123809123801912
+```
+
 ## Contributing
 
 Mastodon is **free, open-source software** licensed under **AGPLv3**.
