@@ -76,6 +76,14 @@ The repository includes deployment configurations for **Docker and docker-compos
 
 A **Vagrant** configuration is included for development purposes.
 
+## Enable Epoch Support
+Run `rails credentials:edit`. Create a new `K/V pair` for key: `epoch_hmac`.
+
+Example:
+```yml
+epoch_hmac: 123809123801912
+```
+
 ## Contributing
 
 Mastodon is **free, open-source software** licensed under **AGPLv3**.
