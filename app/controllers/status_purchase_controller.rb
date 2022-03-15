@@ -11,9 +11,15 @@ class StatusPurchaseController < ApplicationController
   def redirect_if_cant_buy!
     @status = Status.find(params[:status_id])
     if @status.nil?
+      flash[:error] = "Post not found!"
       return redirect_to account_path current_account
     end
+    unless current_account.has_billing_details?
+      flash[:error] = "Billing details incomplete!"
+      return redirect_to settings_profile_path current_account
+    end
     if @status.unlocked_for?(current_account)
+      flash[:error] = "Already unlocked!"
       return redirect_to account_path(status.account)
     end
   end
