@@ -18,7 +18,7 @@ class Api::V1::StatusesController < Api::BaseController
   CONTEXT_LIMIT = 4_096
 
   def show
-    @status = cache_collection([@status], Status).first
+    @status = ContentRestrictor.instance.filter_locked_status(cache_collection([@status], Status).first, current_account)
     render json: @status, serializer: REST::StatusSerializer
   end
 
