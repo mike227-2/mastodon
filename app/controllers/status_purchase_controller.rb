@@ -3,6 +3,7 @@ class StatusPurchaseController < ApplicationController
   before_action :redirect_if_cant_buy!
   def new_transaction
     create_pending_status_purchase
+    redirect_to epoch_uri(@status)
   end
 
   private
@@ -28,14 +29,7 @@ class StatusPurchaseController < ApplicationController
     )
   end
 
-  def epoch_request(status)
-    request = Epoch::ChargeRequest.new
-
-    request.action = 'authandclose'
-    request.auth_amount = status.cost
-    request.member_id = 123
-    request.description = "Post with Id: #{status.id} by: #{status.author.username}"
-
-    "https://test.wnu.com/secure/services?#{request.request.to_query}"
+  def epoch_uri(status)
+    TransactionManager.new(Rails.application.credentials.epoch_hmac).charge_for_status_uri(current_account, status)
   end
 end
