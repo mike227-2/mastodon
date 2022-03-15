@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Permalink from './permalink';
+import UnlockComponent from './status_content_unlock';
 import classnames from 'classnames';
 import PollContainer from 'mastodon/containers/poll_container';
 import Icon from 'mastodon/components/icon';
@@ -174,6 +175,7 @@ export default class StatusContent extends React.PureComponent {
     const renderReadMore = this.props.onClick && status.get('collapsed');
     const renderViewThread = this.props.showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']);
 
+	const locked = status.get('locked') ?? false;
     const content = { __html: status.get('contentHtml') };
     const spoilerContent = { __html: status.get('spoilerHtml') };
     const classNames = classnames('status__content', {
@@ -219,7 +221,11 @@ export default class StatusContent extends React.PureComponent {
 
           {mentionsPlaceholder}
 
-          <div tabIndex={!hidden ? 0 : null} className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''} translate`} dangerouslySetInnerHTML={content} />
+		  {locked ?
+			  <UnlockComponent status={status}></UnlockComponent>
+			:
+			<div tabIndex={!hidden ? 0 : null} className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''} translate`} dangerouslySetInnerHTML={content} />
+		  }
 
           {!hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
@@ -229,7 +235,11 @@ export default class StatusContent extends React.PureComponent {
     } else if (this.props.onClick) {
       const output = [
         <div className={classNames} ref={this.setRef} tabIndex='0' onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} key='status-content' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+		  {locked ?
+			<UnlockComponent status={status}></UnlockComponent>
+			:
           <div className='status__content__text status__content__text--visible translate' dangerouslySetInnerHTML={content} />
+		  }
 
           {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 

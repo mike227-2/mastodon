@@ -42,6 +42,7 @@ class Status < ApplicationRecord
   # If `override_timestamps` is set at creation time, Snowflake ID creation
   # will be based on current time instead of `created_at`
   attr_accessor :override_timestamps
+  attr_accessor :locked, :media_attachments_count
 
   update_index('statuses', :proper)
 

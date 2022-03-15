@@ -59,6 +59,8 @@ export function normalizeStatus(status, normalOldStatus) {
   if (normalOldStatus) {
     normalStatus.search_index = normalOldStatus.get('search_index');
     normalStatus.contentHtml = normalOldStatus.get('contentHtml');
+	normalStatus.locked = normalOldStatus.get('locked');
+	normalStatus.cost = normalOldStatus.get('cost');
     normalStatus.spoilerHtml = normalOldStatus.get('spoilerHtml');
     normalStatus.spoiler_text = normalOldStatus.get('spoiler_text');
     normalStatus.hidden = normalOldStatus.get('hidden');
@@ -77,6 +79,8 @@ export function normalizeStatus(status, normalOldStatus) {
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
     normalStatus.contentHtml  = emojify(normalStatus.content, emojiMap);
     normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
+	normalStatus.locked		  = normalStatus.locked;
+	normalStatus.cost		  = normalStatus.cost;
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }
 
