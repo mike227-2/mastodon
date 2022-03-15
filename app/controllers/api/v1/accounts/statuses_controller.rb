@@ -7,7 +7,8 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   after_action :insert_pagination_headers, unless: -> { truthy_param?(:pinned) }
 
   def index
-    @statuses = filter_locked(load_statuses)
+    all_statuses = load_statuses
+    @statuses = ContentRestrictor.instance.filter_locked_statuses(all_statuses, current_account)
     render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 
@@ -19,17 +20,6 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
 
   def load_statuses
     @account.suspended? ? [] : cached_account_statuses
-  end
-
-  def filter_locked(statuses)
-    statuses.map{|status| filter_method(status)}
-  end
-
-  def filter_method(status)
-    if !status.unlocked_for?(current_account) then
-      status.locked = true
-    end
-    status
   end
 
   def cached_account_statuses
