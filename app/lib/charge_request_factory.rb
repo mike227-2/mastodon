@@ -1,14 +1,11 @@
 # frozen_string_literal: true
-require 'singleton'
-
 class ChargeRequestFactory
-  include Singleton
 
-  def new_request(cents, member_id, return_url, callback_url)
+  def self.new_request(description, cents, member_id, return_url, callback_url)
     ChargeRequest.new({
       'action' => 'authandclose',
       'auth_amount' => cents,
-      'description' => 'Testtransaction',
+      'description' => description,
       'currency' => 'USD',
       'member_id' => member_id,
       'returnurl' => return_url,
