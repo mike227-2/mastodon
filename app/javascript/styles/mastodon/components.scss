@@ -427,7 +427,8 @@
 
   .autosuggest-textarea,
   .autosuggest-input,
-  .spoiler-input {
+  .spoiler-input,
+  .cost-input {
     position: relative;
     width: 100%;
   }
@@ -443,9 +444,22 @@
       opacity: 1;
     }
   }
+  
+  .cost-input {
+    height: 0;
+    transform-origin: bottom;
+    opacity: 0;
+	&.cost-input--visible {
+      height: 36px;
+      margin-bottom: 11px;
+      opacity: 1;
+	}
+  }
 
   .autosuggest-textarea__textarea,
-  .spoiler-input__input {
+  .spoiler-input__input,
+  .cost-input__input
+  {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -473,6 +487,10 @@
   }
 
   .spoiler-input__input {
+    border-radius: 4px;
+  }
+
+  .cost-input__input {
     border-radius: 4px;
   }
 
@@ -743,7 +761,7 @@
   }
 }
 
-.no-reduce-motion .spoiler-input {
+.no-reduce-motion .spoiler-input .cost-input {
   transition: height 0.4s ease, opacity 0.4s ease;
 }
 

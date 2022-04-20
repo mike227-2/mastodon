@@ -7,6 +7,7 @@ import {
   fetchComposeSuggestions,
   selectComposeSuggestion,
   changeComposeSpoilerText,
+  changeComposeCost,
   insertEmojiCompose,
   uploadCompose,
 } from '../../../actions/compose';
@@ -17,6 +18,8 @@ const mapStateToProps = state => ({
   showUpload: state.getIn(['compose', 'showUpload']),
   spoiler: state.getIn(['compose', 'spoiler']),
   spoilerText: state.getIn(['compose', 'spoiler_text']),
+  cost: state.getIn(['compose', 'cost']),
+  costText: state.getIn(['compose', 'cost_text']),
   privacy: state.getIn(['compose', 'privacy']),
   focusDate: state.getIn(['compose', 'focusDate']),
   caretPosition: state.getIn(['compose', 'caretPosition']),
@@ -30,35 +33,39 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onChange(text) {
+  onChange (text) {
     dispatch(changeCompose(text));
   },
 
-  onSubmit(router) {
+  onSubmit (router) {
     dispatch(submitCompose(router));
   },
 
-  onClearSuggestions() {
+  onClearSuggestions () {
     dispatch(clearComposeSuggestions());
   },
 
-  onFetchSuggestions(token) {
+  onFetchSuggestions (token) {
     dispatch(fetchComposeSuggestions(token));
   },
 
-  onSuggestionSelected(position, token, suggestion, path) {
+  onSuggestionSelected (position, token, suggestion, path) {
     dispatch(selectComposeSuggestion(position, token, suggestion, path));
   },
 
-  onChangeSpoilerText(checked) {
+  onChangeSpoilerText (checked) {
     dispatch(changeComposeSpoilerText(checked));
   },
 
-  onPaste(files) {
+  onChangeCost (checked) {
+    dispatch(changeComposeCost(checked));
+  },
+
+  onPaste (files) {
     dispatch(uploadCompose(files));
   },
 
-  onPickEmoji(position, data, needsSpace) {
+  onPickEmoji (position, data, needsSpace) {
     dispatch(insertEmojiCompose(position, data, needsSpace));
   },
 
