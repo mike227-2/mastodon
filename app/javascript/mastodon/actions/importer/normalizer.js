@@ -63,6 +63,8 @@ export function normalizeStatus(status, normalOldStatus) {
 	normalStatus.cost = normalOldStatus.get('cost');
     normalStatus.spoilerHtml = normalOldStatus.get('spoilerHtml');
     normalStatus.spoiler_text = normalOldStatus.get('spoiler_text');
+    normalStatus.cost = normalOldStatus.get('cost');
+    normalStatus.cost_text = normalOldStatus.get('cost_text');
     normalStatus.hidden = normalOldStatus.get('hidden');
   } else {
     // If the status has a CW but no contents, treat the CW as if it were the
