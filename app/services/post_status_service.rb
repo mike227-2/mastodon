@@ -13,6 +13,7 @@ class PostStatusService < BaseService
   # @option [Boolean] :sensitive
   # @option [String] :visibility
   # @option [String] :spoiler_text
+  # @option [Float] :cost
   # @option [String] :language
   # @option [String] :scheduled_at
   # @option [Hash] :poll Optional poll to attach
@@ -164,6 +165,8 @@ class PostStatusService < BaseService
       poll_attributes: poll_attributes,
       sensitive: @sensitive,
       spoiler_text: @options[:spoiler_text] || '',
+      cost: @options[:cost].positive? ? @options[:cost] : nil,
+      locked: @options[:cost].positive?,
       visibility: @visibility,
       language: language_from_option(@options[:language]) || @account.user&.setting_default_language&.presence || LanguageDetector.instance.detect(@text, @account),
       application: @options[:application],

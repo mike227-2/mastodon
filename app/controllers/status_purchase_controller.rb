@@ -2,8 +2,8 @@
 class StatusPurchaseController < ApplicationController
   before_action :redirect_if_cant_buy!
   def new_transaction
-    create_pending_status_purchase
-    redirect_to epoch_uri(@status)
+    status_purchase = create_pending_status_purchase
+    redirect_to epoch_uri(@status, status_purchase)
   end
 
   private
@@ -35,7 +35,8 @@ class StatusPurchaseController < ApplicationController
     )
   end
 
-  def epoch_uri(status)
-    TransactionManager.new(Rails.application.credentials.epoch_hmac).charge_for_status_uri(current_account, status)
+  def epoch_uri(status, status_purchase)
+    DynamicChargeRequestFactory.charge_x(status.cost / 100, status_purchase.id)
+    # TransactionManager.new(Rails.application.credentials.epoch_hmac).charge_for_status_uri(current_account, status)
   end
 end
