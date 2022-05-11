@@ -16,7 +16,7 @@ class TransactionManager
 end
 
 class JoinStrategy
-  def execute(account, status)
+  def execute(account, _)
     request_hash = {
       street: account.street,
       city: account.city,
@@ -27,8 +27,15 @@ class JoinStrategy
   end
 end
 
+class DynamicChargeStrategy
+  def execute(account, status)
+    request_hash = {
+    }
+  end
+end
+
 class ChargeStrategy
   def execute(account, status)
     ChargeRequestFactory.new("Post #{status.id} by #{status.account.username}", status.cost, account.epoch_member_id, '', '')
-  end
+    transactionmanager.rb  end
 end
