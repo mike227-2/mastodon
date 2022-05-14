@@ -4,7 +4,7 @@
   %td
     = status_purchase.status.account.username
   %td
-    = "$ #{status_purchase.amount}"
+    = "$ #{(status_purchase.amount.to_f / 100).to_s}"
   %td
     = status_purchase.state
   %td

@@ -8,10 +8,11 @@ end
 
 class Invoice
   attr_writer :client_id
-  attr_reader :purchases
+  attr_reader :purchases, :invoice_id
+  attr_accessor :success_url
 
   def initialize(invoice_id)
-    @invoice_id = invoice_id
+    @invoice_id = invoice_id.to_s
     @purchases = []
   end
 
@@ -21,9 +22,10 @@ class Invoice
 
   def invoice_attributes
     {
-      :client_id => @client_id,
-      :invoice_id => @invoice_id,
-      :purchases => @purchases.map(&:purchase_attributes)
+      client_id: @client_id,
+      invoice_id: @invoice_id,
+      purchases: @purchases.map(&:purchase_attributes),
+      success_url: @success_url,
     }
   end
 end
@@ -37,13 +39,13 @@ class Purchase
 
   def purchase_attributes
     {
-      :site => 'www.bigbuttbouncetwerk.com',
-      :billing => {
-        :currency => 'USD',
-        :initial => {
-          :amount => @amount,
-        }
-      }
+      site: 'www.bigbuttbouncetwerk.com',
+      billing: {
+        currency: 'USD',
+        initial: {
+          amount: @amount,
+        },
+      },
     }
   end
 end

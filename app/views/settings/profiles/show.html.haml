@@ -98,6 +98,6 @@
       %th State
       %th Due date
   %tbody
-    = render @account.status_purchases
+    = render @account.status_purchases.reverse.to_a
 
 %hr.spacer/
