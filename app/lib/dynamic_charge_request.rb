@@ -3,22 +3,20 @@ require 'jwt'
 require 'net/http'
 
 class DynamicChargeRequest
-  # client_id = mastercode without the 'M-'
   CLIENT_ID = '660268'
-  #SHARED_SECRET_KEY= '993f8cb425dfb45ed3b83a4c7718a922'
-  SHARED_SECRET_KEY= 'LbWTWEyVMX'
+  SHARED_SECRET_KEY = Rails.application.credentials[:epoch_shared_secret]
   API_URL = 'https://join.wnu.com/invoice-push'
-  #API_URL = 'http://localhost:8080/invoice-push'
 
-  def initialize(invoice)
+  def initialize(invoice, base_url)
     @invoice = invoice
+    @success_url = "#{base_url}/confirm/#{invoice.invoice_id}"
   end
 
   def run
     @invoice.client_id = CLIENT_ID
+    @invoice.success_url = @success_url
     payload = @invoice.invoice_attributes.to_json
     authorization_token = create_authorization_token(payload)
-    puts authorization_token
     response = Net::HTTP.post(URI(API_URL), payload, 'Authorization' => "Bearer #{authorization_token}", "Content-type" => 'application/json')
 
     json_content = JSON.parse(response.body)
