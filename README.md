@@ -81,7 +81,8 @@ Run `rails credentials:edit`. Create a new `K/V pair` for key: `epoch_hmac`.
 
 Example:
 ```yml
-epoch_hmac: 123809123801912
+epoch_client_id: EPOCH_CLIENT_ID
+epoch_shared_secret: SHARED_JWT_SECRET_FOR_EPOCH
 ```
 
 ## Contributing
