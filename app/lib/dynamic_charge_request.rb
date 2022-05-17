@@ -3,7 +3,7 @@ require 'jwt'
 require 'net/http'
 
 class DynamicChargeRequest
-  CLIENT_ID = '660268'
+  CLIENT_ID = Rails.application.credentials[:epoch_client_id]
   SHARED_SECRET_KEY = Rails.application.credentials[:epoch_shared_secret]
   API_URL = 'https://join.wnu.com/invoice-push'
 
