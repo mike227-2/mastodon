@@ -54,6 +54,18 @@
           %input{ type: :text, maxlength: '999', spellcheck: 'false', readonly: 'true', value: link_to('Mastodon', ActivityPub::TagManager.instance.url_for(@account), rel: 'me').to_str }
         %button{ type: :button }= t('generic.copy')
 
+  %hr.spacer/
+
+  .fields-row
+    .fields-row__column.fields-group.fields-row__column-12
+      .input.with_block_label
+        %label= 'Billing address'
+        %span.hint= 'This will be seen on your invoices.'
+        .fields-group
+          = f.input :street, wrapper: :with_label, input_html: { maxlength: 30, placeholder: '5th Avenue' }, hint: false
+          = f.input :city, wrapper: :with_label, input_html: { maxlength: 30, placeholder: 'New York' }, hint: false
+          = f.input :state, wrapper: :with_label, input_html: { maxlength: 30, placeholder: 'USA' }, hint: false
+          = f.input :phone, as: :string, wrapper: :with_label, input_html: { maxlength: 30, placeholder: '+1 123 500 300'}, hint: false
   .actions
     = f.button :button, t('generic.save_changes'), type: :submit
 
@@ -72,3 +84,19 @@
 
   %h6= t('auth.delete_account')
   %p.muted-hint= t('auth.delete_account_html', path: settings_delete_path)
+
+%hr.spacer/
+
+%h2 Transactions
+%table.table.table--invites
+  %thead
+    %tr
+      %th Post
+      %th Author
+      %th Price
+      %th State
+      %th Due date
+  %tbody
+    = render @account.status_purchases.reverse.to_a
+
+%hr.spacer/

@@ -10,6 +10,7 @@ import PollButtonContainer from '../containers/poll_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
 import { defineMessages, injectIntl } from 'react-intl';
 import SpoilerButtonContainer from '../containers/spoiler_button_container';
+import CostButtonContainer from '../containers/cost_button_container';
 import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../containers/poll_form_container';
@@ -42,8 +43,10 @@ class ComposeForm extends ImmutablePureComponent {
     text: PropTypes.string.isRequired,
     suggestions: ImmutablePropTypes.list,
     spoiler: PropTypes.bool,
+	cost: PropTypes.bool,
     privacy: PropTypes.string,
     spoilerText: PropTypes.string,
+	costText: PropTypes.string,
     focusDate: PropTypes.instanceOf(Date),
     caretPosition: PropTypes.number,
     preselectDate: PropTypes.instanceOf(Date),
@@ -56,6 +59,7 @@ class ComposeForm extends ImmutablePureComponent {
     onFetchSuggestions: PropTypes.func.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
     onChangeSpoilerText: PropTypes.func.isRequired,
+    onChangeCost: PropTypes.func.isRequired,
     onPaste: PropTypes.func.isRequired,
     onPickEmoji: PropTypes.func.isRequired,
     showSearch: PropTypes.bool,
@@ -123,6 +127,10 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onChangeSpoilerText(e.target.value);
   }
 
+  handleChangeCost = (e) => {
+    this.props.onChangeCost(e.target.value);
+  }
+
   handleFocus = () => {
     if (this.composeForm && !this.props.singleColumn) {
       const { left, right } = this.composeForm.getBoundingClientRect();
@@ -170,6 +178,12 @@ class ComposeForm extends ImmutablePureComponent {
       } else {
         this.autosuggestTextarea.textarea.focus();
       }
+    } else if (this.props.cost !== prevProps.cost) {
+      if (this.props.cost) {
+        this.costText.input.focus();
+      } else {
+        this.autosuggestTextarea.textarea.focus();
+      }
     }
   }
 
@@ -179,6 +193,10 @@ class ComposeForm extends ImmutablePureComponent {
 
   setSpoilerText = (c) => {
     this.spoilerText = c;
+  }
+
+  setCost = (c) => {
+    this.costText = c;
   }
 
   setRef = c => {
@@ -227,6 +245,24 @@ class ComposeForm extends ImmutablePureComponent {
             className='spoiler-input__input'
           />
         </div>
+		  <p>{this.props.cost}</p>
+        <div className={`cost-input ${this.props.cost ? 'cost-input--visible' : ''}`} ref={this.setRef}>
+          <AutosuggestInput
+            placeholder={'Cost'}
+            value={this.props.costText}
+            onChange={this.handleChangeCost}
+            onKeyDown={this.handleKeyDown}
+            disabled={!this.props.cost}
+            ref={this.setCost}
+            suggestions={this.props.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            onSuggestionSelected={this.onSpoilerSuggestionSelected}
+            searchTokens={[':']}
+            id='cw-cost-input'
+            className='cost-input__input'
+          />
+        </div>
 
         <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
@@ -256,6 +292,7 @@ class ComposeForm extends ImmutablePureComponent {
             <PollButtonContainer />
             <PrivacyDropdownContainer />
             <SpoilerButtonContainer />
+			<CostButtonContainer />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={this.getFulltextForCharacterCounting()} /></div>
         </div>

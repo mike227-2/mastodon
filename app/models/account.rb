@@ -47,6 +47,11 @@
 #  devices_url                   :string
 #  suspension_origin             :integer
 #  sensitized_at                 :datetime
+#  epoch_member_id               :string
+#  street                        :string
+#  phone                         :string
+#  state                         :string
+#  city                          :string
 #
 
 class Account < ApplicationRecord
@@ -78,6 +83,9 @@ class Account < ApplicationRecord
     untrusted: 0,
     trusted: 1,
   }.freeze
+
+  belongs_to :status_purchases, optional: true
+  has_many :status_purchases
 
   enum protocol: [:ostatus, :activitypub]
   enum suspension_origin: [:local, :remote], _prefix: true
@@ -157,6 +165,10 @@ class Account < ApplicationRecord
 
   def bot?
     %w(Application Service).include? actor_type
+  end
+
+  def has_billing_details?
+    true unless street.blank? or phone.blank? or city.blank? or state.blank?
   end
 
   def instance_actor?

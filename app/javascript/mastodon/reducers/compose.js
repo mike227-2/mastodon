@@ -26,6 +26,8 @@ import {
   COMPOSE_TAG_HISTORY_UPDATE,
   COMPOSE_SENSITIVITY_CHANGE,
   COMPOSE_SPOILERNESS_CHANGE,
+  COMPOSE_COSTNESS_CHANGE,
+  COMPOSE_COST_CHANGE,
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_COMPOSING_CHANGE,
@@ -57,6 +59,8 @@ const initialState = ImmutableMap({
   sensitive: false,
   spoiler: false,
   spoiler_text: '',
+  cost: false,
+  cost_text: '',
   privacy: null,
   text: '',
   focusDate: null,
@@ -109,7 +113,9 @@ function clearAll(state) {
   return state.withMutations(map => {
     map.set('text', '');
     map.set('spoiler', false);
+    map.set('cost', false);
     map.set('spoiler_text', '');
+    map.set('cost_text', '');
     map.set('is_submitting', false);
     map.set('is_changing_upload', false);
     map.set('in_reply_to', null);
@@ -287,6 +293,12 @@ export default function compose(state = initialState, action) {
 
       map.set('idempotencyKey', uuid());
     });
+  case COMPOSE_COSTNESS_CHANGE:
+      console.log("Received. Sending" + !state.get('cost'));
+    return state.withMutations(map => {
+      map.set('cost', !state.get('cost'));
+      map.set('idempotencyKey', uuid());
+    });
   case COMPOSE_SPOILERNESS_CHANGE:
     return state.withMutations(map => {
       map.set('spoiler', !state.get('spoiler'));
@@ -301,6 +313,12 @@ export default function compose(state = initialState, action) {
     return state
       .set('spoiler_text', action.text)
       .set('idempotencyKey', uuid());
+  case COMPOSE_COST_CHANGE:
+      if (!state.get('cost')) return state;
+	  return state.withMutations(map => {
+		map.set('cost_text', action.cost);
+		map.set('idempotencyKey', uuid());
+	  });
   case COMPOSE_VISIBILITY_CHANGE:
     return state
       .set('privacy', action.value)
@@ -335,7 +353,9 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', null);
       map.set('text', '');
       map.set('spoiler', false);
+      map.set('cost', false);
       map.set('spoiler_text', '');
+      map.set('cost_text', '');
       map.set('privacy', state.get('default_privacy'));
       map.set('poll', null);
       map.set('idempotencyKey', uuid());
@@ -445,6 +465,14 @@ export default function compose(state = initialState, action) {
       map.set('caretPosition', null);
       map.set('idempotencyKey', uuid());
       map.set('sensitive', action.status.get('sensitive'));
+
+      if (action.status.get('cost_text').length > 0) {
+        map.set('cost', true);
+        map.set('cost_text', action.status.get('cost_text'));
+      } else {
+        map.set('cost', false);
+        map.set('cost_text', '');
+      }
 
       if (action.status.get('spoiler_text').length > 0) {
         map.set('spoiler', true);

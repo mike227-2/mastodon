@@ -47,6 +47,8 @@ export const COMPOSE_UNMOUNT = 'COMPOSE_UNMOUNT';
 
 export const COMPOSE_SENSITIVITY_CHANGE = 'COMPOSE_SENSITIVITY_CHANGE';
 export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE';
+export const COMPOSE_COSTNESS_CHANGE = 'COMPOSE_COSTNESS_CHANGE';
+export const COMPOSE_COST_CHANGE = 'COMPOSE_COST_CHANGE';
 export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE';
 export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
 export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
@@ -152,6 +154,7 @@ export function submitCompose(routerHistory) {
       media_ids: media.map(item => item.get('id')),
       sensitive: getState().getIn(['compose', 'sensitive']),
       spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
+      cost_text: getState().getIn(['compose', 'cost']) ? getState().getIn(['compose', 'cost_text'], '') : '',
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
     }, {
@@ -620,6 +623,19 @@ export function changeComposeSensitivity() {
 export function changeComposeSpoilerness() {
   return {
     type: COMPOSE_SPOILERNESS_CHANGE,
+  };
+};
+
+export function changeComposeCostness() {
+  return {
+    type: COMPOSE_COSTNESS_CHANGE,
+  };
+};
+
+export function changeComposeCost(cost) {
+  return {
+    type: COMPOSE_COST_CHANGE,
+    cost,
   };
 };
 

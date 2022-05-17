@@ -1,0 +1,11 @@
+%tr
+  %td
+    = status_purchase.status.id
+  %td
+    = status_purchase.status.account.username
+  %td
+    = "$ #{(status_purchase.amount.to_f / 100).to_s}"
+  %td
+    = status_purchase.state
+  %td
+    = status_purchase.created_at

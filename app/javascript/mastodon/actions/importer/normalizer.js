@@ -59,8 +59,12 @@ export function normalizeStatus(status, normalOldStatus) {
   if (normalOldStatus) {
     normalStatus.search_index = normalOldStatus.get('search_index');
     normalStatus.contentHtml = normalOldStatus.get('contentHtml');
+	normalStatus.locked = normalOldStatus.get('locked');
+	normalStatus.cost = normalOldStatus.get('cost');
     normalStatus.spoilerHtml = normalOldStatus.get('spoilerHtml');
     normalStatus.spoiler_text = normalOldStatus.get('spoiler_text');
+    normalStatus.cost = normalOldStatus.get('cost');
+    normalStatus.cost_text = normalOldStatus.get('cost_text');
     normalStatus.hidden = normalOldStatus.get('hidden');
   } else {
     // If the status has a CW but no contents, treat the CW as if it were the
@@ -77,6 +81,8 @@ export function normalizeStatus(status, normalOldStatus) {
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
     normalStatus.contentHtml  = emojify(normalStatus.content, emojiMap);
     normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
+	normalStatus.locked		  = normalStatus.locked;
+	normalStatus.cost		  = normalStatus.cost;
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }
 

@@ -7,7 +7,8 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   after_action :insert_pagination_headers, unless: -> { truthy_param?(:pinned) }
 
   def index
-    @statuses = load_statuses
+    all_statuses = load_statuses
+    @statuses = ContentRestrictor.instance.filter_locked_statuses(all_statuses, current_account)
     render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 

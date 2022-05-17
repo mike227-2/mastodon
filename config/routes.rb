@@ -21,6 +21,9 @@ Rails.application.routes.draw do
                 tokens: 'oauth/tokens'
   end
 
+  get '/buy/:status_id', to: 'status_purchase#new_transaction', as: :buy
+  get '/confirm/:reference_id', to: 'status_purchase#confirm', as: :confirm
+
   get '.well-known/host-meta', to: 'well_known/host_meta#show', as: :host_meta, defaults: { format: 'xml' }
   get '.well-known/nodeinfo', to: 'well_known/nodeinfo#index', as: :nodeinfo, defaults: { format: 'json' }
   get '.well-known/webfinger', to: 'well_known/webfinger#show', as: :webfinger

@@ -23,6 +23,7 @@
 #  in_reply_to_account_id :bigint(8)
 #  poll_id                :bigint(8)
 #  deleted_at             :datetime
+#  cost                   :float
 #
 
 class Status < ApplicationRecord
@@ -41,10 +42,14 @@ class Status < ApplicationRecord
   # If `override_timestamps` is set at creation time, Snowflake ID creation
   # will be based on current time instead of `created_at`
   attr_accessor :override_timestamps
+  attr_accessor :locked, :media_attachments_count
 
   update_index('statuses', :proper)
 
   enum visibility: [:public, :unlisted, :private, :direct, :limited], _suffix: :visibility
+
+  has_many :status_purchases
+  has_many :accounts, :through => :status_purchases
 
   belongs_to :application, class_name: 'Doorkeeper::Application', optional: true
 
@@ -167,6 +172,10 @@ class Status < ApplicationRecord
 
   def reblog?
     !reblog_of_id.nil?
+  end
+
+  def unlocked_for?(account)
+    ContentRestrictor.instance.unlocked_for?(self, account)
   end
 
   def within_realtime_window?

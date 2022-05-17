@@ -10,7 +10,7 @@ import LoadingBarContainer from './containers/loading_bar_container';
 import ModalContainer from './containers/modal_container';
 import { layoutFromWindow } from 'mastodon/is_mobile';
 import { debounce } from 'lodash';
-import { uploadCompose, resetCompose, changeComposeSpoilerness } from '../../actions/compose';
+import { uploadCompose, resetCompose, changeComposeSpoilerness, changeComposeCostness } from '../../actions/compose';
 import { expandHomeTimeline } from '../../actions/timelines';
 import { expandNotifications } from '../../actions/notifications';
 import { fetchFilters } from '../../actions/filters';
@@ -419,6 +419,7 @@ class UI extends React.PureComponent {
   handleHotkeyToggleComposeSpoilers = e => {
     e.preventDefault();
     this.props.dispatch(changeComposeSpoilerness());
+    this.props.dispatch(changeComposeCostness());
   }
 
   handleHotkeyFocusColumn = e => {

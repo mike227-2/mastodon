@@ -18,7 +18,7 @@ class Api::V1::StatusesController < Api::BaseController
   CONTEXT_LIMIT = 4_096
 
   def show
-    @status = cache_collection([@status], Status).first
+    @status = ContentRestrictor.instance.filter_locked_status(cache_collection([@status], Status).first, current_account)
     render json: @status, serializer: REST::StatusSerializer
   end
 
@@ -41,6 +41,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],
+                                         cost: status_params[:cost_text].to_f * 100,
                                          visibility: status_params[:visibility],
                                          scheduled_at: status_params[:scheduled_at],
                                          application: doorkeeper_token.application,
@@ -82,6 +83,7 @@ class Api::V1::StatusesController < Api::BaseController
       :status,
       :in_reply_to_id,
       :sensitive,
+      :cost_text,
       :spoiler_text,
       :visibility,
       :scheduled_at,
