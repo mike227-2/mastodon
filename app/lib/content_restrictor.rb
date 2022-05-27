@@ -7,7 +7,7 @@ class ContentRestrictor
 
   def unlocked_for?(status, account)
     found_purchase = StatusPurchase.find_by(status_id: status.id, account: account, state: :succeed)
-    status.cost.nil? or !found_purchase.nil? # or status.account == account
+    status.cost.nil? or !found_purchase.nil? or status.account == account
   end
 
   def filter_locked_statuses(statuses, account)
