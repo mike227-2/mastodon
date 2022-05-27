@@ -39,7 +39,7 @@ class Purchase
 
   def purchase_attributes
     {
-      site: 'www.bigbuttbouncetwerk.com',
+      site: 'm.tonza-app.com',
       billing: {
         currency: 'USD',
         initial: {
