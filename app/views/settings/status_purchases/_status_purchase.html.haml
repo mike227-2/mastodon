@@ -1,8 +1,8 @@
 %tr
   %td
-    = status_purchase.status.id
+    = status_purchase.status.id unless status_purchase.status.id.nil?
   %td
-    = status_purchase.status.account.username
+    = status_purchase.status.account.username unless status_purchase.status.id.nil?
   %td
     = "$ #{(status_purchase.amount.to_f / 100).to_s}"
   %td
