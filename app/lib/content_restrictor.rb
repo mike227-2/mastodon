@@ -23,7 +23,6 @@ class ContentRestrictor
     unless status.unlocked_for? account
       status.locked = true
       status.media_attachments_count = status.media_attachments.length
-      status.media_attachments = []
       status.text = 'Locked'
     end
     status
