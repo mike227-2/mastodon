@@ -181,7 +181,11 @@ class Status < ApplicationRecord
     if account.nil?
       return false
     end
-    ContentRestrictor.instance.unlocked_for?(self, account)
+    found_purchase = StatusPurchase.find_by(status_id: id, account: account, state: :succeed)
+    if found_purchase.nil? || status.account != account
+      return false
+    end
+    true
   end
 
   def within_realtime_window?

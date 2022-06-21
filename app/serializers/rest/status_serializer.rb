@@ -71,7 +71,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def content
-    if object.unlocked_for?(current_user?)
+    if object.unlocked_for?(current_user)
       Formatter.instance.format(object)
     else
       'Unlock first!'
@@ -87,7 +87,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def text
-    if object.unlocked_for?(current_user?)
+    if object.unlocked_for?(current_user)
       object.text
     else
       'Unlock first!'
