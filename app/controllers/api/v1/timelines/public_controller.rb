@@ -5,7 +5,7 @@ class Api::V1::Timelines::PublicController < Api::BaseController
   after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   def show
-    @statuses = load_statuses
+    @statuses = ContentRestrictor.instance.filter_locked_statuses(load_statuses)
     render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 

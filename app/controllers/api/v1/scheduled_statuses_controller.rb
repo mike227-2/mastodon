@@ -12,11 +12,11 @@ class Api::V1::ScheduledStatusesController < Api::BaseController
   after_action :insert_pagination_headers, only: :index
 
   def index
-    render json: @statuses, each_serializer: REST::ScheduledStatusSerializer
+    render json: only_public(@statuses), each_serializer: REST::ScheduledStatusSerializer
   end
 
   def show
-    render json: @status, serializer: REST::ScheduledStatusSerializer
+    render json: only_public([@status]).first, serializer: REST::ScheduledStatusSerializer
   end
 
   def update
@@ -30,6 +30,10 @@ class Api::V1::ScheduledStatusesController < Api::BaseController
   end
 
   private
+
+  def only_public(statuses)
+    ContentRestrictor.instance.filter_locked_statuses(statuses, current_account)
+  end
 
   def set_statuses
     @statuses = current_account.scheduled_statuses.to_a_paginated_by_id(limit_param(DEFAULT_STATUSES_LIMIT), params_slice(:max_id, :since_id, :min_id))

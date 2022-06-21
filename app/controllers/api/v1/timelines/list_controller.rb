@@ -25,7 +25,8 @@ class Api::V1::Timelines::ListController < Api::BaseController
   end
 
   def cached_list_statuses
-    cache_collection list_statuses, Status
+    statuses = cache_collection list_statuses, Status
+    ContentRestrictor.instance.filter_locked_statuses(statuses, current_account)
   end
 
   def list_statuses
