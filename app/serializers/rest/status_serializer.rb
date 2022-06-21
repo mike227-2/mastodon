@@ -71,7 +71,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def content
-    if object.unlocked_for?(current_user)
+    if object.unlocked_for?(current_user.account_id)
       Formatter.instance.format(object)
     else
       'Unlock first!'
@@ -79,7 +79,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def media_attachments
-    if object.unlocked_for?(current_user)
+    if object.unlocked_for?(current_user.account_id)
       object.media_attachments
     else
       []
@@ -87,7 +87,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def text
-    if object.unlocked_for?(current_user)
+    if object.unlocked_for?(current_user.account_id)
       object.text
     else
       'Unlock first!'
@@ -95,7 +95,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def locked
-    !object.unlocked_for?(current_user)
+    !object.unlocked_for?(current_user.account_id)
   end
 
   def url

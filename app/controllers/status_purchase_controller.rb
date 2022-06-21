@@ -26,9 +26,9 @@ class StatusPurchaseController < ApplicationController
       flash[:error] = "Billing details incomplete!"
       return redirect_to settings_profile_path current_account
     end
-    if @status.unlocked_for?(current_account)
+    if @status.unlocked_for?(current_account.id)
       flash[:error] = "Already unlocked!"
-      return redirect_to account_path(status.account)
+      redirect_to account_path(status.account)
     end
   end
 

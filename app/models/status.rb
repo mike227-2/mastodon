@@ -174,10 +174,12 @@ class Status < ApplicationRecord
     !reblog_of_id.nil?
   end
 
-  def unlocked_for?(viewer_account)
+  def unlocked_for?(viewer_account_id)
     return true if cost.nil?
-    return false if viewer_account.nil?
-    return true if viewer_account.account_id == account_id
+    return false if viewer_account_id.nil?
+
+    viewer_account = Account.find(viewer_account_id)
+    return true if viewer_account_id == account_id
 
     found_purchase = StatusPurchase.find_by(status_id: id, account: viewer_account, state: :succeed)
     !found_purchase.nil?
