@@ -5,7 +5,7 @@ export default function UnlockComponent(props) {
 
   return (<div>
 	<p>
-	Post is locked. Contains {status.get('media_attachments_count')}{status.get('sensitive') ? " sensitive":''} media.
+	Post is locked. Unlock first.
 	</p>
 	<a href={"/buy/" + status.get('id')}>
 	Unlock for $ {status.get('cost')/100}
