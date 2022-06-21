@@ -12,14 +12,14 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attribute :bookmarked, if: :current_user?
   attribute :pinned, if: :pinnable?
 
-  attribute :content, unless: :source_requested?, if: object.unlocked_for?(current_user)
-  attribute :text, if: :source_requested? and object.unlocked_for?(current_user)
+  attribute :content, unless: :source_requested?
+  attribute :text, if: :source_requested?
 
   belongs_to :reblog, serializer: REST::StatusSerializer
   belongs_to :application, if: :show_application?
   belongs_to :account, serializer: REST::AccountSerializer
 
-  has_many :media_attachments, serializer: REST::MediaAttachmentSerializer, if: object.unlocked_for?(current_user)
+  has_many :media_attachments, serializer: REST::MediaAttachmentSerializer
   has_many :ordered_mentions, key: :mentions
   has_many :tags
   has_many :emojis, serializer: REST::CustomEmojiSerializer
