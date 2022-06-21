@@ -17,7 +17,7 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   private
 
   def load_statuses
-    ContentRestrictor.instance.filter_locked_statuses(cached_home_statuses, current_account)
+    cached_home_statuses
   end
 
   def cached_home_statuses

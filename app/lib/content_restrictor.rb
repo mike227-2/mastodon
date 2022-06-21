@@ -21,12 +21,10 @@ class ContentRestrictor
 
   def filter_locked_status(status, account)
     unless status.unlocked_for? account
-      clone = status.clone
-      clone.locked = true
-      clone.media_attachments = []
-      clone.media_attachments_count = status.media_attachments.length
-      clone.text = ''
+      status.locked = true
+      status.media_attachments_count = status.media_attachments.length
+      status.text = 'Locked'
     end
-    clone
+    status
   end
 end

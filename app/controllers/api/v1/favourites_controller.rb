@@ -6,7 +6,7 @@ class Api::V1::FavouritesController < Api::BaseController
   after_action :insert_pagination_headers
 
   def index
-    @statuses = ContentRestrictor.instance.filter_locked_statuses(load_statuses, current_account)
+    @statuses = load_statuses
     render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 
