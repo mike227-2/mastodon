@@ -31,6 +31,30 @@ class REST::StatusSerializer < ActiveModel::Serializer
     object.id.to_s
   end
 
+  def media_attachments
+    if object.unlocked_for?(current_user)
+      self['media_attachments']
+    else
+      []
+    end
+  end
+
+  def content
+    if object.unlocked_for?(current_user?)
+      self['content']
+    else
+      'Unlock first!'
+    end
+  end
+
+  def text
+    if object.unlocked_for?(current_user?)
+      self['text']
+    else
+      'Unlock first!'
+    end
+  end
+
   def in_reply_to_id
     object.in_reply_to_id&.to_s
   end

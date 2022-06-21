@@ -175,6 +175,12 @@ class Status < ApplicationRecord
   end
 
   def unlocked_for?(account)
+    if cost.nil?
+      return true
+    end
+    if account.nil?
+      return false
+    end
     ContentRestrictor.instance.unlocked_for?(self, account)
   end
 
