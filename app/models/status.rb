@@ -181,8 +181,9 @@ class Status < ApplicationRecord
     if account.nil?
       return false
     end
+    return true if account.id == status.account.id
     found_purchase = StatusPurchase.find_by(status_id: id, account: account, state: :succeed)
-    if found_purchase.nil? || status.account != account
+    if found_purchase.nil?
       return false
     end
     true
