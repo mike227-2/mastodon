@@ -6,7 +6,7 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   def show
-    @statuses = load_statuses
+    @statuses = ContentRestrictor.instance.filter_locked_statuses(load_statuses, current_account)
 
     render json: @statuses,
            each_serializer: REST::StatusSerializer,
@@ -17,7 +17,7 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   private
 
   def load_statuses
-    ContentRestrictor.instance.filter_locked_statuses(cached_home_statuses, current_account)
+    cached_home_statuses
   end
 
   def cached_home_statuses
