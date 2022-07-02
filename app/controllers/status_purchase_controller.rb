@@ -10,7 +10,9 @@ class StatusPurchaseController < ApplicationController
 
   def confirm
     redirect_to account_path(current_account) and return if @status_purchase.nil?
-    current_account.update(epoch_member_id: params[:member_id])
+    if params[:member_id]
+      current_account.update(epoch_member_id: params[:member_id])
+    end
     @status_purchase.update(state: :succeed)
     redirect_to account_status_path(@status_purchase.account, @status_purchase.status)
   end
