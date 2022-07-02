@@ -44,7 +44,7 @@ class StatusPurchaseController < ApplicationController
     if current_user.epoch_member_id.nil?
       DynamicChargeRequestFactory.charge_x(status.cost / 100, status_purchase.id, request.base_url)
     else
-      ChargeRequestFactory.new_request(status_purchase.id, status_purchase.amount, current_user.epoch_member_id, account_status_path(status_purchase.account, status_purchase.status), status_purchase_confirm_url(status_purchase.id)).build_uri(Rails.application.credentials[:epoch_hmac])
+      ChargeRequestFactory.new_request(status_purchase.id, status_purchase.amount, current_account.epoch_member_id, account_status_path(status_purchase.account, status_purchase.status), status_purchase_confirm_url(status_purchase.id)).build_uri(Rails.application.credentials[:epoch_hmac])
     end
   end
 
