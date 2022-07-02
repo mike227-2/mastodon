@@ -10,8 +10,7 @@ class StatusPurchaseController < ApplicationController
 
   def confirm
     redirect_to account_path(current_account) and return if @status_purchase.nil?
-    current_account.epoch_member_id = params[:member_id]
-    current_account.save
+    current_account.update(epoch_member_id: params[:member_id])
     @status_purchase.update(state: :succeed)
     redirect_to account_status_path(@status_purchase.account, @status_purchase.status)
   end
@@ -23,10 +22,6 @@ class StatusPurchaseController < ApplicationController
     if @status.nil?
       flash[:error] = "Post not found!"
       return redirect_to account_path current_account
-    end
-    unless current_account.has_billing_details?
-      flash[:error] = "Billing details incomplete!"
-      return redirect_to settings_profile_path current_account
     end
     if @status.unlocked_for?(current_account.id)
       flash[:error] = "Already unlocked!"
@@ -46,7 +41,11 @@ class StatusPurchaseController < ApplicationController
   end
 
   def epoch_uri(status, status_purchase)
-    DynamicChargeRequestFactory.charge_x(status.cost / 100, status_purchase.id, request.base_url)
+    if current_user.epoch_member_id.nil?
+      DynamicChargeRequestFactory.charge_x(status.cost / 100, status_purchase.id, request.base_url)
+    else
+      ChargeRequestFactory.new_request(status_purchase.id, status_purchase.amount, current_user.epoch_member_id, account_status_path(status_purchase.account, status_purchase.status), status_purchase_confirm_url(status_purchase.id)).build_uri(Rails.application.credentials[:epoch_hmac])
+    end
   end
 
   def set_status_purchase_by_id
